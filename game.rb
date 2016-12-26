@@ -1,5 +1,6 @@
 $LOAD_PATH << '.'
 
+#Classes Importadas
 require 'gosu'
 require_relative 'player'
 
@@ -20,10 +21,13 @@ class GameWindow < Gosu::Window
     #SoundTracks
     @titleScreenOst = Gosu::Song.new("audio/TitleScreen.wav")
     @battleOst = Gosu::Song.new("audio/Battle.wav")
+    @optionOst = Gosu::Sample.new("audio/opçãoSom.wav")
     #Objetos
     @player = Player.new(self)
   end
 
+  #Método Update principal.
+  #Executa os métodos Updates secundários de acordo com o estado do jogo
   def update
     if @estado == "titleScreen" then
       update_title_scene
@@ -32,14 +36,30 @@ class GameWindow < Gosu::Window
     end
   end
 
+  #Executa a música específica para a titleScreen
   def update_title_scene
     @titleScreenOst.play(true)
   end
 
+  #Executa a música de batalha e executa os movimentos do player.
   def update_jogando
     @battleOst.play(true)
+    if Gosu::button_down? Gosu::KbUp then
+      @player.move_up
+    end
+    if Gosu::button_down? Gosu::KbDown then
+      @player.move_down
+    end
+    if Gosu::button_down? Gosu::KbLeft then
+      @player.move_left
+    end
+    if Gosu::button_down? Gosu::KbRight  then
+      @player.move_right
+    end
   end
 
+  #Método Draw principal.
+  #Executa os métodos Draws secundários de acordo com o estado do jogo
   def draw
     if @estado == "titleScreen" then
       draw_title_scene
@@ -48,6 +68,7 @@ class GameWindow < Gosu::Window
     end
   end
 
+  #Alterna entre as imagens de acordo com o valor do atributo @option
   def draw_title_scene
     if @option == 1  then
       @bg_option1.draw(0, 0, 0)
@@ -58,6 +79,7 @@ class GameWindow < Gosu::Window
     end
   end
 
+  #Exibe o Background e o personagem na tela
   def draw_jogando
     @bg_battle.draw(0, 0, 0)
     @player.draw
@@ -66,36 +88,25 @@ class GameWindow < Gosu::Window
   def button_down(id)
     #TITLESCREEN
     if @estado == "titleScreen" then
-      #Troca as opções
+      #Altera o valor do atributo de acordo com a tecla pressionada.
       if id == Gosu::KbUp && @option > 1 then
         @option -= 1
+        @optionOst.play
       elsif id == Gosu::KbUp && @option == 1 then
         @option = 3
+        @optionOst.play
       end
       if id == Gosu::KbDown && @option < 3 then
         @option += 1
+        @optionOst.play
       elsif id == Gosu::KbDown && @option == 3 then
         @option = 1
+        @optionOst.play
       end
-      #Troca de tela
-      if button_down?(Gosu::KbReturn) && @option == 1 then
+      #Troca o estado do jogo caso a opção "Start" seja selecionada e a tecla Enter seja pressionada
+      if id == Gosu::KbReturn && @option == 1 then
         @titleScreenOst.stop
         @estado = "jogando"
-      end
-    end
-    #PLAYING
-    if @estado == "jogando" then
-      if id == Gosu::KbUp then
-        @player.move_up
-      end
-      if id == Gosu::KbDown then
-        @player.move_down
-      end
-      if id == Gosu::KbLeft then
-        @player.move_left
-      end
-      if id == Gosu::KbRight then
-        @player.move_right
       end
     end
   end

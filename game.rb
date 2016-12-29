@@ -15,14 +15,15 @@ class GameWindow < Gosu::Window
     @bg_option1 = Gosu::Image.new("images/op1.png")
     @bg_option2 = Gosu::Image.new("images/op2.png")
     @bg_option3 = Gosu::Image.new("images/op3.png")
-    @bg_battle = Gosu::Image.new("images/battle_map.png")
+    @bg_battle = Gosu::Image.new("images/battle_map_void.png")
 
     @titleScreenOst = Gosu::Song.new("audio/TitleScreen.wav")
     @battleOst = Gosu::Song.new("audio/Battle.wav")
     @optionOst = Gosu::Sample.new("audio/opçãoSom.wav")
 
     @player = Player.new(self)
-    @solid = Solid.new(self)
+    @solidos = Array.new(5) { Array.new(6) }
+    criar_mapa
   end
 
   def update
@@ -47,6 +48,11 @@ class GameWindow < Gosu::Window
     when :game
       @player.draw
       @bg_battle.draw(0, 0, 0)
+      @solidos.each do |solid|
+        solid.each do |s|
+          s.draw
+        end
+      end
     end
   end
 
@@ -66,6 +72,16 @@ class GameWindow < Gosu::Window
           @optionOst.play
           @estado = :game
         end
+      end
+    end
+  end
+
+  def criar_mapa
+    for i in 0..4 do
+      for j in 0..5 do
+        @solidos[i][j] = Solid.new(self)
+        @solidos[i][j].x += (32 * (j + 1))
+        @solidos[i][j].y += (32 * (i + 1))
       end
     end
   end

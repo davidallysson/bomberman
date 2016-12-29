@@ -24,7 +24,7 @@ class Player
 	#Draw principal de Player.
 	#Exibe o personagem sobre o background e nas coordenadas @x e @y
 	def draw
-		@images[@image_index].draw(@x, @y, 1)
+		@images[@image_index].draw(@x, @y, 2)
 	end
 
 	#Move o personagem para cima e realiza a troca dos seus sprites.

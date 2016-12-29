@@ -11,13 +11,29 @@ class Solid
   def initialize(window)
 		@x = 7
 		@y = 24
-    @radius = 8
+    @radius = 16
 		@images = Gosu::Image::load_tiles('images/tile_16x16.png', 16, 16)
-    @image_index = 1
+    @image_index = 5
   end
 
   def draw
     @images[@image_index].draw(@x, @y, 1)
   end
+
+	def x=(x)
+    @x = x
+  end
+
+	def x
+		@x
+	end
+
+	def y=(y)
+    @y = y
+  end
+
+	def y
+		@y
+	end
 
 end

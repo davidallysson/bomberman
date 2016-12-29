@@ -11,6 +11,8 @@ class GameWindow < Gosu::Window
 
     @option = 1
     @estado = :title
+    @font = Gosu::Font.new(12)
+    @distancia = nil
 
     @bg_option1 = Gosu::Image.new("images/op1.png")
     @bg_option2 = Gosu::Image.new("images/op2.png")
@@ -23,6 +25,7 @@ class GameWindow < Gosu::Window
 
     @player = Player.new(self)
     @solidos = Array.new(5) { Array.new(6) }
+
     criar_mapa
   end
 
@@ -32,10 +35,10 @@ class GameWindow < Gosu::Window
       #@titleScreenOst.play(true)
     when :game
       #@battleOst.play(true)
-      @player.move_up if Gosu::button_down? Gosu::KbUp
-      @player.move_down if Gosu::button_down? Gosu::KbDown
-      @player.move_left if Gosu::button_down? Gosu::KbLeft
-      @player.move_right if Gosu::button_down? Gosu::KbRight
+      @player.move_up if button_down? (Gosu::KbUp)
+      @player.move_down if button_down? (Gosu::KbDown)
+      @player.move_left if button_down? (Gosu::KbLeft)
+      @player.move_right if button_down? (Gosu::KbRight)
     end
   end
 
@@ -46,13 +49,13 @@ class GameWindow < Gosu::Window
       @bg_option2.draw(0, 0, 0) if @option == 2
       @bg_option3.draw(0, 0, 0) if @option == 3
     when :game
-      @player.draw
       @bg_battle.draw(0, 0, 0)
       @solidos.each do |solid|
         solid.each do |s|
           s.draw
         end
       end
+      @player.draw
     end
   end
 
@@ -84,6 +87,19 @@ class GameWindow < Gosu::Window
         @solidos[i][j].y += (32 * (i + 1))
       end
     end
+  end
+
+  #Método em construção ...
+  def verificar_obstaculo?
+    for i in 0..4 do
+      for j in 0..5 do
+        @distancia = Gosu::distance(@player.x + 8, @player.y + 13, @solidos[i][j].x + 8, @solidos[i][j].y + 6)
+        if @distancia < @player.radius + @solidos[i][j].radius
+          true
+        end
+      end
+    end
+    false
   end
 
 end

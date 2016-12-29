@@ -3,16 +3,18 @@ $LOAD_PATH << '.'
 require 'gosu'
 
 class Player
-	attr_reader :x, :y, :radius, :angle, :image_index, :velocity
-
-	WIDTH = 16
-	HEIGHT = 26
+	attr_accessor :x, :y, :width, :height, :radius, :angle, :image_index, :velocity
 
   def initialize(window)
-		@x = 119
-		@y = 110
-		@radius = 16
+		@x = 128
+		@y = 120
+
+		@width = 16
+		@height = 26
+
+		@radius = 8 #valor fixo
 		@velocity = 4
+
 		#Indice referente a imagem inicial para o personagem
 		@image_index = 6
 		#Divide o sprite em várias imagens diferentes
@@ -24,27 +26,27 @@ class Player
 	#Draw principal de Player.
 	#Exibe o personagem sobre o background e nas coordenadas @x e @y
 	def draw
-		@images[@image_index].draw(@x, @y, 2)
+		@images[@image_index].draw(@x - @width / 2, @y - @height / 2, 2)
 	end
 
 	#Move o personagem para cima e realiza a troca dos seus sprites.
   def move_up
     @y -= @velocity
-		@y = 30 if @y < 30 #Limitador do movimento para cima
+		@y = 32 + @radius if @y < 32 + @radius #Limitador do movimento para cima
 		changeSprite([0, 1, 2])
   end
 
 	#Move o personagem para baixo e realiza a troca dos seus sprites.
   def move_down
 		@y += @velocity
-		@y = (@window.height - @radius - 36) if @y > @window.height - @radius - 36 #Limitador do movimento para baixo
+		@y = (@window.height - @radius - 32) if @y > @window.height - @radius - 32 #Limitador do movimento para baixo
 		changeSprite([6, 7, 8])
   end
 
 	#Move o personagem para a esquerda e realiza a troca dos seus sprites.
   def move_left
 		@x -= @velocity
-		@x = 23 if @x < 23 #Limitador do movimento para a esquerda
+		@x = 23 + @radius if @x < 23 + @radius #Limitador do movimento para a esquerda
 		changeSprite([9, 10, 11])
   end
 

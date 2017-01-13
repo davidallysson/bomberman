@@ -32,13 +32,15 @@ class GameWindow < Gosu::Window
   def update
     case @estado
     when :title
-      #@titleScreenOst.play(true)
+      @titleScreenOst.play(true)
     when :game
-      #@battleOst.play(true)
-      @player.move_up if button_down? (Gosu::KbUp)
-      @player.move_down if button_down? (Gosu::KbDown)
-      @player.move_left if button_down? (Gosu::KbLeft)
-      @player.move_right if button_down? (Gosu::KbRight)
+      @battleOst.play(true)
+      if verificar_obstaculo? == false
+        @player.move_up if button_down? (Gosu::KbUp)
+        @player.move_down if button_down? (Gosu::KbDown)
+        @player.move_left if button_down? (Gosu::KbLeft)
+        @player.move_right if button_down? (Gosu::KbRight)
+      end
     end
   end
 
@@ -71,7 +73,7 @@ class GameWindow < Gosu::Window
         if @option < 3 then @option += 1 elsif @option == 3 then @option = 1 end
       when Gosu::KbReturn
         if @option == 1 then
-          #@titleScreenOst.stop
+          @titleScreenOst.stop
           @optionOst.play
           @estado = :game
         end
@@ -91,10 +93,10 @@ class GameWindow < Gosu::Window
 
   #Método em construção ...
   def verificar_obstaculo?
-    for i in 0..4 do
-      for j in 0..5 do
-        @distancia = Gosu::distance(@player.x + 8, @player.y + 13, @solidos[i][j].x + 8, @solidos[i][j].y + 6)
-        if @distancia < @player.radius + @solidos[i][j].radius
+    @solidos.dup.each do |solid|
+      solid.dup.each do |s|
+        @distancia = Gosu::distance(@player.x, @player.y, s.x, s.y)
+        if @distancia < @player.radius + s.radius
           true
         end
       end

@@ -12,7 +12,7 @@ class Solid
 		@width = 16
 		@height = 16
 
-    @radius = 12
+    @radius = 8
 
 		@images = Gosu::Image::load_tiles('images/tile_16x16.png', 16, 16)
     @image_index = 5

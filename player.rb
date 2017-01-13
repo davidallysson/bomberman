@@ -10,10 +10,10 @@ class Player
 		@y = 120
 
 		@width = 16
-		@height = 26
+		@height = 14
 
 		@radius = 8 #valor fixo
-		@velocity = 4
+		@velocity = 6
 
 		#Indice referente a imagem inicial para o personagem
 		@image_index = 6
@@ -32,14 +32,14 @@ class Player
 	#Move o personagem para cima e realiza a troca dos seus sprites.
   def move_up
     @y -= @velocity
-		@y = 32 + @radius if @y < 32 + @radius #Limitador do movimento para cima
+		@y = 29 + @radius if @y < 29 + @radius #Limitador do movimento para cima
 		changeSprite([0, 1, 2])
   end
 
 	#Move o personagem para baixo e realiza a troca dos seus sprites.
   def move_down
 		@y += @velocity
-		@y = (@window.height - @radius - 32) if @y > @window.height - @radius - 32 #Limitador do movimento para baixo
+		@y = (@window.height - @radius - 35) if @y > @window.height - @radius - 35 #Limitador do movimento para baixo
 		changeSprite([6, 7, 8])
   end
 

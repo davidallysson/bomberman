@@ -3,7 +3,7 @@ $LOAD_PATH << '.'
 require 'gosu'
 
 class Player
-	attr_accessor :x, :y, :width, :height, :radius, :angle, :image_index, :velocity
+	attr_accessor :x, :y, :width, :height, :radius, :image_index, :velocity
 
   def initialize(window)
 		@x = 128

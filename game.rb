@@ -3,6 +3,7 @@ $LOAD_PATH << '.'
 require 'gosu'
 require_relative 'player'
 require_relative 'solid'
+require_relative 'timer'
 
 class GameWindow < Gosu::Window
   def initialize
@@ -23,6 +24,7 @@ class GameWindow < Gosu::Window
     @battleOst = Gosu::Song.new("audio/Battle.wav")
     @optionOst = Gosu::Sample.new("audio/opçãoSom.wav")
 
+    @timer = Timer.new
     @player = Player.new(self)
     @solidos = Array.new(5) { Array.new(6) }
 
@@ -35,12 +37,12 @@ class GameWindow < Gosu::Window
       @titleScreenOst.play(true)
     when :game
       @battleOst.play(true)
-      if verificar_obstaculo? == false
-        @player.move_up if button_down? (Gosu::KbUp)
-        @player.move_down if button_down? (Gosu::KbDown)
-        @player.move_left if button_down? (Gosu::KbLeft)
-        @player.move_right if button_down? (Gosu::KbRight)
-      end
+
+      @player.move_up if button_down? (Gosu::KbUp)
+      @player.move_down if button_down? (Gosu::KbDown)
+      @player.move_left if button_down? (Gosu::KbLeft)
+      @player.move_right if button_down? (Gosu::KbRight)
+
     end
   end
 
@@ -58,6 +60,7 @@ class GameWindow < Gosu::Window
         end
       end
       @player.draw
+      @timer.relogio
     end
   end
 
@@ -89,19 +92,6 @@ class GameWindow < Gosu::Window
         @solidos[i][j].y += (32 * (i + 1))
       end
     end
-  end
-
-  #Método em construção ...
-  def verificar_obstaculo?
-    @solidos.dup.each do |solid|
-      solid.dup.each do |s|
-        @distancia = Gosu::distance(@player.x, @player.y, s.x, s.y)
-        if @distancia < @player.radius + s.radius
-          true
-        end
-      end
-    end
-    false
   end
 
 end

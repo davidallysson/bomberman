@@ -2,7 +2,6 @@ $LOAD_PATH << '.'
 
 require 'gosu'
 require_relative 'player'
-require_relative 'solid'
 require_relative 'timer'
 
 class GameWindow < Gosu::Window
@@ -18,7 +17,7 @@ class GameWindow < Gosu::Window
     @bg_option1 = Gosu::Image.new("images/op1.png")
     @bg_option2 = Gosu::Image.new("images/op2.png")
     @bg_option3 = Gosu::Image.new("images/op3.png")
-    @bg_battle = Gosu::Image.new("images/battle_map_void.png")
+    @bg_battle = Gosu::Image.new("images/battle_map.png")
 
     @titleScreenOst = Gosu::Song.new("audio/TitleScreen.wav")
     @battleOst = Gosu::Song.new("audio/Battle.wav")
@@ -26,9 +25,7 @@ class GameWindow < Gosu::Window
 
     @timer = Timer.new
     @player = Player.new(self)
-    @solidos = Array.new(5) { Array.new(6) }
 
-    criar_mapa
   end
 
   def update
@@ -43,6 +40,8 @@ class GameWindow < Gosu::Window
       @player.move_left if button_down? (Gosu::KbLeft)
       @player.move_right if button_down? (Gosu::KbRight)
 
+      @timer.relogio
+      
     end
   end
 
@@ -54,13 +53,9 @@ class GameWindow < Gosu::Window
       @bg_option3.draw(0, 0, 0) if @option == 3
     when :game
       @bg_battle.draw(0, 0, 0)
-      @solidos.each do |solid|
-        solid.each do |s|
-          s.draw
-        end
-      end
       @player.draw
-      @timer.relogio
+
+      @timer.draw
     end
   end
 
@@ -80,16 +75,6 @@ class GameWindow < Gosu::Window
           @optionOst.play
           @estado = :game
         end
-      end
-    end
-  end
-
-  def criar_mapa
-    for i in 0..4 do
-      for j in 0..5 do
-        @solidos[i][j] = Solid.new(self)
-        @solidos[i][j].x += (32 * (j + 1))
-        @solidos[i][j].y += (32 * (i + 1))
       end
     end
   end

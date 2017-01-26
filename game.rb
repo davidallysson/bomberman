@@ -71,6 +71,11 @@ class GameWindow < Gosu::Window
           @estado = :game
         end
       end
+    when :game
+      case id
+      when Gosu::KbSpace
+        
+      end
     end
   end
 

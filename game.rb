@@ -24,9 +24,6 @@ class GameWindow < Gosu::Window
 
     @timer = Timer.new
     @player = Player.new(self)
-
-    @tempo = 14400 # 4 min
-
   end
 
   def update
@@ -34,8 +31,8 @@ class GameWindow < Gosu::Window
     when :title
       @titleScreenOst.play(true)
     when :game
+      @timer.relogio
       @battleOst.play(true)
-      tempo
       @player.move_up if button_down? (Gosu::KbUp)
       @player.move_down if button_down? (Gosu::KbDown)
       @player.move_left if button_down? (Gosu::KbLeft)
@@ -54,7 +51,6 @@ class GameWindow < Gosu::Window
       @player.draw
 
       @timer.draw
-      @font.draw("#{@min}:#{@seg}",10,35,3,1.0,1.0,0xffffff00)
     end
   end
 
@@ -75,15 +71,6 @@ class GameWindow < Gosu::Window
           @estado = :game
         end
       end
-    end
-  end
-
-  def tempo
-    @tempo -= 1
-    @min = (@tempo / 60) / 60
-    @seg = (@tempo / 60)
-    while @seg > 60
-      @seg -= 60
     end
   end
 

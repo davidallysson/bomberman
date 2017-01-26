@@ -3,7 +3,7 @@ $LOAD_PATH << '.'
 require 'gosu'
 
 class Timer
-  attr_accessor :x, :y, :width, :height, :min, :seg1, :seg2
+  attr_accessor :x, :y, :width, :height, :min, :seg1, :seg2, :tempo
 
   def initialize
 
@@ -17,14 +17,31 @@ class Timer
     @seg1 = 0
     @seg2 = 0
 
+    @tempo = 14400 # 4 min
+
     @images = Gosu::Image::load_tiles('images/tile_8x14.png', 8, 14)
 
   end
 
   def draw
-    @images[min].draw(@x - @width / 2, @y - @height / 2, 2)
-    @images[seg1].draw(@x + 16 - @width / 2, @y - @height / 2, 2)
-    @images[seg2].draw(@x + 24 - @width / 2, @y - @height / 2, 2)
+    @images[@min].draw(@x - @width / 2, @y - @height / 2, 2)
+    @images[@seg1].draw(@x + 16 - @width / 2, @y - @height / 2, 2)
+    @images[@seg2].draw(@x + 24 - @width / 2, @y - @height / 2, 2)
+  end
+
+  def relogio
+    @tempo -= 1
+    @min = (@tempo / 60) / 60
+    @seg = (@tempo / 60)
+    while @seg >= 60
+      @seg -= 60
+    end
+    @seg1 = @seg.to_s[0].to_i
+    @seg2 = @seg.to_s[1].to_i
+    if @seg < 10
+      @seg1 = 0
+      @seg2 = @seg.to_s[0].to_i
+    end
   end
 
 end

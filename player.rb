@@ -198,8 +198,6 @@ class Player
 		@x -= @velocity if @y >= 168 and @y <= 190 and @x >= 163 and @x <= 187 #Limitação do movimento para a direita - 5ª Linha 5° bloco
 		@x -= @velocity if @y >= 168 and @y <= 190 and @x >= 195 and @x <= 219 #Limitação do movimento para a direita - 5ª Linha 6° bloco
 
-
-
 		changeSprite([3, 4, 5])
   end
 

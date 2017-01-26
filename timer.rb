@@ -27,20 +27,4 @@ class Timer
     @images[seg2].draw(@x + 24 - @width / 2, @y - @height / 2, 2)
   end
 
-  def relogio
-    Thread.new {
-    3.downto(0) do |m|
-      5.downto(0) do |s1|
-        9.downto(0) do |s2|
-            @min = m
-            @seg1 = s1
-            @seg2 = s2
-
-            sleep 1
-        end
-      end
-    end
-    }
-  end
-
 end

@@ -3,6 +3,7 @@ $LOAD_PATH << '.'
 require 'gosu'
 require_relative 'player'
 require_relative 'timer'
+require_relative 'bomb'
 
 class GameWindow < Gosu::Window
   def initialize
@@ -22,8 +23,8 @@ class GameWindow < Gosu::Window
     @battleOst = Gosu::Song.new("audio/Battle.wav")
     @optionOst = Gosu::Sample.new("audio/opçãoSom.wav")
 
-    @timer = Timer.new
-    @player = Player.new(self)
+    @bombs = []
+    @numero_de_bombas = 1
   end
 
   def update
@@ -49,8 +50,10 @@ class GameWindow < Gosu::Window
     when :game
       @bg_battle.draw(0, 0, 0)
       @player.draw
-
       @timer.draw
+      @bombs.each do |bomb|
+        bomb.draw
+      end
     end
   end
 
@@ -69,12 +72,18 @@ class GameWindow < Gosu::Window
           @titleScreenOst.stop
           @optionOst.play
           @estado = :game
+          @timer = Timer.new
+          @player = Player.new(self)
         end
+      when Gosu::KbEscape
+        exit
       end
     when :game
       case id
       when Gosu::KbSpace
-        
+          @bombs.push Bomb.new(@player.x, @player.y + 12) #if @bombs.length < @numero_de_bombas
+      when Gosu::KbEscape
+          @estado = :title
       end
     end
   end

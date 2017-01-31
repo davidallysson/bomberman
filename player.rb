@@ -6,8 +6,8 @@ class Player
 	attr_accessor :x, :y, :width, :height, :radius, :image_index, :velocity
 
   def initialize(window)
-		@x = 128
-		@y = 120
+		@x = 127
+		@y = 118
 
 		@width = 16
 		@height = 14
@@ -26,7 +26,7 @@ class Player
 	#Draw principal de Player.
 	#Exibe o personagem sobre o background e nas coordenadas @x e @y
 	def draw
-		@images[@image_index].draw(@x - @width / 2, @y - @height / 2, 2)
+		@images[@image_index].draw(@x - @width / 2, @y - @height / 2, 3)
 	end
 
 	#Move o personagem para cima e realiza a troca dos seus sprites.

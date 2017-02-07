@@ -4,11 +4,13 @@ require 'gosu'
 require_relative 'player'
 require_relative 'timer'
 require_relative 'bomb'
+require_relative 'explosion'
+require_relative 'boss'
 
 class GameWindow < Gosu::Window
   def initialize
     super(256, 240, true)
-    self.caption = "BomberBraulio v.0.1"
+    self.caption = "BomberBraulio v.0.2"
 
     @option = 1
     @estado = :title
@@ -24,7 +26,6 @@ class GameWindow < Gosu::Window
     @optionOst = Gosu::Sample.new("audio/opçãoSom.wav")
 
     @bombs = []
-    @numero_de_bombas = 1
   end
 
   def update
@@ -50,9 +51,13 @@ class GameWindow < Gosu::Window
     when :game
       @bg_battle.draw(0, 0, 0)
       @player.draw
+      @boss.draw
       @timer.draw
       @bombs.each do |bomb|
         bomb.draw
+        if bomb.finished == true then
+          Explosion.new(bomb.x, bomb.y, 3).draw
+        end
       end
     end
   end
@@ -72,8 +77,10 @@ class GameWindow < Gosu::Window
           @titleScreenOst.stop
           @optionOst.play
           @estado = :game
+          @bombs = []
           @timer = Timer.new
           @player = Player.new(self)
+          @boss = Boss.new
         end
       when Gosu::KbEscape
         exit
@@ -81,7 +88,7 @@ class GameWindow < Gosu::Window
     when :game
       case id
       when Gosu::KbSpace
-          @bombs.push Bomb.new(@player.x, @player.y + 12) #if @bombs.length < @numero_de_bombas
+          @bombs.push Bomb.new(@player.x, @player.y + 12) if @bombs.length < @player.bomb_limit
       when Gosu::KbEscape
           @estado = :title
       end

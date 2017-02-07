@@ -30,7 +30,9 @@ class Timer
   end
 
   def relogio
-    @tempo -= 1
+    if @tempo > 0
+      @tempo -= 1
+    end
     @min = (@tempo / 60) / 60
     @seg = (@tempo / 60)
     while @seg >= 60

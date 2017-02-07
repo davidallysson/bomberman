@@ -3,7 +3,7 @@ $LOAD_PATH << '.'
 require 'gosu'
 
 class Player
-	attr_accessor :x, :y, :width, :height, :radius, :image_index, :velocity
+	attr_accessor :x, :y, :width, :height, :radius, :image_index, :velocity, :vidas, :bomb_limit
 
   def initialize(window)
 		@x = 127
@@ -21,12 +21,18 @@ class Player
 		@images = Gosu::Image::load_tiles('images/sprite_16x26.png', 16, 26)
 		#Transformar o objeto window em atributo
 		@window = window
+
+		@vidas = 3
+		@bomb_limit = 1
+		@numbers = Gosu::Image::load_tiles('images/tile_8x14.png', 8, 14)
   end
 
 	#Draw principal de Player.
 	#Exibe o personagem sobre o background e nas coordenadas @x e @y
 	def draw
 		@images[@image_index].draw(@x - @width / 2, @y - @height / 2, 3)
+		@numbers[@vidas].draw(180, 6, 3)
+		@numbers[@bomb_limit].draw(212, 6, 3)
 	end
 
 	#Move o personagem para cima e realiza a troca dos seus sprites.

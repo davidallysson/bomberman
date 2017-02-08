@@ -4,7 +4,6 @@ require 'gosu'
 require_relative 'player'
 require_relative 'timer'
 require_relative 'bomb'
-require_relative 'explosion'
 require_relative 'boss'
 
 class GameWindow < Gosu::Window
@@ -54,9 +53,10 @@ class GameWindow < Gosu::Window
       @boss.draw
       @timer.draw
       @bombs.each do |bomb|
-        bomb.draw
-        if bomb.finished == true then
-          Explosion.new(bomb.x, bomb.y, 3).draw
+        if bomb.finished == false
+          bomb.draw
+        else
+          @bombs.delete(bomb)
         end
       end
     end

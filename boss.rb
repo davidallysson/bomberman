@@ -3,15 +3,16 @@ $LOAD_PATH << '.'
 require 'gosu'
 
 class Boss
-  attr_accessor :x, :y, :width, :height, :vidas
+  attr_accessor :x, :y, :width, :height, :img, :radius, :damaged, :vidas
 
   def initialize
     @x = 126
-    @y = 64
+    @y = 80
 
     @width = 48
 		@height = 48
-    @vidas = 9
+    @vidas = 3
+    @damaged = false
 
     @radius = 24
 

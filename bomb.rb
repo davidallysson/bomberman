@@ -3,7 +3,7 @@ $LOAD_PATH << '.'
 require 'gosu'
 
 class Bomb
-  attr_accessor :x, :y, :width, :height, :image_index, :bombtimer, :finished
+  attr_accessor :x, :y, :width, :height, :radius, :image_index, :bombtimer, :finished
 
   def initialize(x, y)
     @x = x

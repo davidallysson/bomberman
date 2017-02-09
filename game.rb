@@ -12,17 +12,29 @@ class GameWindow < Gosu::Window
     self.caption = "BomberBraulio v.0.2"
 
     @option = 1
+    @image_index = 0
     @estado = :title
-    @font = Gosu::Font.new(12)
+    @font = Gosu::Font.new(40)
 
     @bg_option1 = Gosu::Image.new("images/op1.png")
     @bg_option2 = Gosu::Image.new("images/op2.png")
     @bg_option3 = Gosu::Image.new("images/op3.png")
     @bg_battle = Gosu::Image.new("images/battle_map.png")
 
+    @gameover = []
+    for i in 0..10 do @gameover[i] = Gosu::Image.new("images/gameOver1.png") end
+    for i in 11..20 do @gameover[i] = Gosu::Image.new("images/gameOver2.png") end
+
+    @boss_damaged = []
+    for i in 0..4 do @boss_damaged[i] = Gosu::Image.new("images/boss.png") end
+    for i in 5..10 do @boss_damaged[i] = Gosu::Image.new("images/boss_damage.png") end
+    for i in 11..14 do @boss_damaged[i] = Gosu::Image.new("images/boss.png") end
+
     @titleScreenOst = Gosu::Song.new("audio/TitleScreen.wav")
-    @battleOst = Gosu::Song.new("audio/Battle.wav")
     @optionOst = Gosu::Sample.new("audio/opçãoSom.wav")
+    @battleOst = Gosu::Song.new("audio/Battle.wav")
+    @danoOst = Gosu::Sample.new("audio/dano.ogg")
+    @gameoverOst = Gosu::Song.new("audio/GameOver.wav")
 
     @bombs = []
   end
@@ -38,6 +50,33 @@ class GameWindow < Gosu::Window
       @player.move_down if button_down? (Gosu::KbDown)
       @player.move_left if button_down? (Gosu::KbLeft)
       @player.move_right if button_down? (Gosu::KbRight)
+
+      distanciaBoss = Gosu::distance(@player.x, @player.y, @boss.x, @boss.y)
+      if distanciaBoss + 15 < @player.radius + @boss.radius then
+        @player.y += 35 if button_down? (Gosu::KbUp)
+        @player.y -= 35 if button_down? (Gosu::KbDown)
+        @player.x += 35 if button_down? (Gosu::KbLeft)
+        @player.x -= 35 if button_down? (Gosu::KbRight)
+        @player.vidas -= 1
+        @danoOst.play
+      end
+
+      @bombs.each do |bomb|
+        @distanciaBomba = Gosu::distance(bomb.x, bomb.y, @boss.x, @boss.y)
+        if @distanciaBomba - 10 < bomb.radius + @boss.radius then
+          if bomb.finished == true then
+            @boss.damaged = true
+            @boss.vidas -= 1
+          end
+        end
+      end
+
+      if @player.vidas == 0 || @boss.vidas == 0 then
+        @estado = :over
+      end
+    when :over
+      @battleOst.stop
+      @gameoverOst.play(true)
     end
   end
 
@@ -58,6 +97,26 @@ class GameWindow < Gosu::Window
         else
           @bombs.delete(bomb)
         end
+      end
+
+      if @boss.damaged == true
+        if @image_index < @boss_damaged.count
+          @boss.img = @boss_damaged[@image_index]
+          @image_index += 1
+        else
+          @boss.damaged = false
+        end
+      end
+
+      @font.draw(@boss.damaged, 30, 30, 1, 1, 1, 0xffffff00)
+    when :over
+      @font.draw("GAME", 18, 105, 1, 1, 1, 0xffffff00)
+      @font.draw("OVER", 18, 135, 1, 1, 1, 0xffffff00)
+      if @image_index < @gameover.count
+        @gameover[@image_index].draw(0, 0, 0)
+        @image_index += 1
+      else
+        @image_index = 0
       end
     end
   end
@@ -89,6 +148,11 @@ class GameWindow < Gosu::Window
       case id
       when Gosu::KbSpace
           @bombs.push Bomb.new(@player.x, @player.y + 12) if @bombs.length < @player.bomb_limit
+      when Gosu::KbEscape
+          @estado = :title
+      end
+    when :over
+      case id
       when Gosu::KbEscape
           @estado = :title
       end

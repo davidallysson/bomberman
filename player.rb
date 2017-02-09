@@ -18,7 +18,7 @@ class Player
 		#Indice referente a imagem inicial para o personagem
 		@image_index = 6
 		#Divide o sprite em várias imagens diferentes
-		@images = Gosu::Image::load_tiles('images/sprite_16x26.png', 16, 26)
+		@images = Gosu::Image::load_tiles('images/sprite_16x26v1.png', 16, 26)
 		#Transformar o objeto window em atributo
 		@window = window
 
@@ -31,7 +31,7 @@ class Player
 	#Exibe o personagem sobre o background e nas coordenadas @x e @y
 	def draw
 		@images[@image_index].draw(@x - @width / 2, @y - @height / 2, 3)
-		@numbers[@vidas].draw(180, 6, 3)
+		@numbers[@vidas].draw(182, 6, 3)
 		@numbers[@bomb_limit].draw(212, 6, 3)
 	end
 

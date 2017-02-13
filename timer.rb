@@ -13,15 +13,10 @@ class Timer
 		@width = 8
 		@height = 14
 
-    @min = 0
-    @seg1 = 0
-    @seg2 = 0
-
-    @tempo = 14400 # 4 min
-    @tempo = 3600
+    @minutosreais = 2
+    @tempo = 3600 * @minutosreais
 
     @images = Gosu::Image::load_tiles('images/tile_8x14.png', 8, 14)
-
   end
 
   def draw

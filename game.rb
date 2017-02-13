@@ -9,7 +9,7 @@ require_relative 'boss'
 class GameWindow < Gosu::Window
   def initialize
     super(256, 240, true)
-    self.caption = "BomberBraulio v.0.3"
+    self.caption = "BomberBraulio v.0.4"
 
     @option = 1
     @image_index = 0
@@ -25,13 +25,12 @@ class GameWindow < Gosu::Window
     for i in 0..10 do @gameover[i] = Gosu::Image.new("images/gameOver1.png") end
     for i in 11..20 do @gameover[i] = Gosu::Image.new("images/gameOver2.png") end
 
-    @boss_damaged = []
-
     @titleScreenOst = Gosu::Song.new("audio/TitleScreen.wav")
     @optionOst = Gosu::Sample.new("audio/opçãoSom.wav")
     @battleOst = Gosu::Song.new("audio/Battle.wav")
     @danoOst = Gosu::Sample.new("audio/dano.ogg")
     @gameoverOst = Gosu::Song.new("audio/GameOver.wav")
+    @winnerOst = Gosu::Song.new("audio/win.wav")
 
     @bombs = []
   end
@@ -44,17 +43,26 @@ class GameWindow < Gosu::Window
       @timer.relogio
       @battleOst.play(true)
       #Movimentação do PLAYER
-      @player.move_up if button_down? (Gosu::KbUp)
-      @player.move_down if button_down? (Gosu::KbDown)
-      @player.move_left if button_down? (Gosu::KbLeft)
-      @player.move_right if button_down? (Gosu::KbRight)
+      @player.move_up if button_down? (Gosu::KbW)
+      @player.move_down if button_down? (Gosu::KbS)
+      @player.move_left if button_down? (Gosu::KbA)
+      @player.move_right if button_down? (Gosu::KbD)
+      #Movimentação do BOSS
+      @boss.move_up if button_down? (Gosu::KbUp)
+      @boss.move_down if button_down? (Gosu::KbDown)
+      @boss.move_left if button_down? (Gosu::KbLeft)
+      @boss.move_right if button_down? (Gosu::KbRight)
       #Colisão PLAYER-BOSS
       distanciaBoss = Gosu::distance(@player.x, @player.y, @boss.x, @boss.y)
       if distanciaBoss + 15 < @player.radius + @boss.radius then
-        @player.y += 35 if button_down? (Gosu::KbUp)
-        @player.y -= 35 if button_down? (Gosu::KbDown)
-        @player.x += 35 if button_down? (Gosu::KbLeft)
-        @player.x -= 35 if button_down? (Gosu::KbRight)
+        @player.y += 35 if button_down? (Gosu::KbW)
+        @player.y += 35 if button_down? (Gosu::KbDown)
+        @player.y -= 35 if button_down? (Gosu::KbS)
+        @player.y -= 35 if button_down? (Gosu::KbUp)
+        @player.x += 35 if button_down? (Gosu::KbA)
+        @player.x += 35 if button_down? (Gosu::KbRight)
+        @player.x -= 35 if button_down? (Gosu::KbD)
+        @player.x -= 35 if button_down? (Gosu::KbLeft)
         @player.vidas -= 1
         @danoOst.play
       end
@@ -70,12 +78,19 @@ class GameWindow < Gosu::Window
         end
       end
       #Condições que levam ao GAMEOVER
-      if @player.vidas == 0 || @boss.vidas == 0 || @timer.tempo == 0 then
+      if @player.vidas == 0 || @timer.tempo == 0 then
         @estado = :over
+      end
+      #Condições que levam a vitória
+      if @boss.vidas == 0
+        @estado = :winner
       end
     when :over
       @battleOst.stop
       @gameoverOst.play(true)
+    when :winner
+      @battleOst.stop
+      @winnerOst.play(true)
     end
   end
 
@@ -115,6 +130,16 @@ class GameWindow < Gosu::Window
       else
         @image_index = 0
       end
+    when :winner
+      @font.draw("VOCÊ", 18, 105, 1, 1, 1, 0xffffff00)
+      @font.draw("VENCEU", 9, 135, 1, 1, 1, 0xffffff00)
+      #Animação de VITORIA
+      if @image_index < @gameover.count
+        @gameover[@image_index].draw(0, 0, 0)
+        @image_index += 1
+      else
+        @image_index = 0
+      end
     end
   end
 
@@ -122,10 +147,10 @@ class GameWindow < Gosu::Window
     case @estado
     when :title
       case id
-      when Gosu::KbUp
+      when Gosu::KbW
         @optionOst.play
         if @option > 1 then @option -= 1 elsif @option == 1 then @option = 3 end
-      when Gosu::KbDown
+      when Gosu::KbS
         @optionOst.play
         if @option < 3 then @option += 1 elsif @option == 3 then @option = 1 end
       when Gosu::KbReturn
@@ -136,7 +161,7 @@ class GameWindow < Gosu::Window
           @bombs = []
           @timer = Timer.new
           @player = Player.new(self)
-          @boss = Boss.new
+          @boss = Boss.new(self)
         end
       when Gosu::KbEscape
         exit
@@ -149,6 +174,11 @@ class GameWindow < Gosu::Window
           @estado = :title
       end
     when :over
+      case id
+      when Gosu::KbEscape
+          @estado = :title
+      end
+    when :winner
       case id
       when Gosu::KbEscape
           @estado = :title

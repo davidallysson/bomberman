@@ -9,7 +9,7 @@ require_relative 'boss'
 class GameWindow < Gosu::Window
   def initialize
     super(256, 240, true)
-    self.caption = "BomberBraulio v.0.2"
+    self.caption = "BomberBraulio v.0.3"
 
     @option = 1
     @image_index = 0
@@ -26,9 +26,6 @@ class GameWindow < Gosu::Window
     for i in 11..20 do @gameover[i] = Gosu::Image.new("images/gameOver2.png") end
 
     @boss_damaged = []
-    for i in 0..4 do @boss_damaged[i] = Gosu::Image.new("images/boss.png") end
-    for i in 5..10 do @boss_damaged[i] = Gosu::Image.new("images/boss_damage.png") end
-    for i in 11..14 do @boss_damaged[i] = Gosu::Image.new("images/boss.png") end
 
     @titleScreenOst = Gosu::Song.new("audio/TitleScreen.wav")
     @optionOst = Gosu::Sample.new("audio/opçãoSom.wav")
@@ -46,11 +43,12 @@ class GameWindow < Gosu::Window
     when :game
       @timer.relogio
       @battleOst.play(true)
+      #Movimentação do PLAYER
       @player.move_up if button_down? (Gosu::KbUp)
       @player.move_down if button_down? (Gosu::KbDown)
       @player.move_left if button_down? (Gosu::KbLeft)
       @player.move_right if button_down? (Gosu::KbRight)
-
+      #Colisão PLAYER-BOSS
       distanciaBoss = Gosu::distance(@player.x, @player.y, @boss.x, @boss.y)
       if distanciaBoss + 15 < @player.radius + @boss.radius then
         @player.y += 35 if button_down? (Gosu::KbUp)
@@ -60,18 +58,19 @@ class GameWindow < Gosu::Window
         @player.vidas -= 1
         @danoOst.play
       end
-
+      #Colisão BOMBA-BOSS
       @bombs.each do |bomb|
         @distanciaBomba = Gosu::distance(bomb.x, bomb.y, @boss.x, @boss.y)
         if @distanciaBomba - 10 < bomb.radius + @boss.radius then
           if bomb.finished == true then
-            @boss.damaged = true
+            @boss.damaged = true #trocar o sprite
             @boss.vidas -= 1
+            @image_index = 0 #reiniciar animação
           end
         end
       end
-
-      if @player.vidas == 0 || @boss.vidas == 0 then
+      #Condições que levam ao GAMEOVER
+      if @player.vidas == 0 || @boss.vidas == 0 || @timer.tempo == 0 then
         @estado = :over
       end
     when :over
@@ -98,20 +97,18 @@ class GameWindow < Gosu::Window
           @bombs.delete(bomb)
         end
       end
-
+      #Reutilizando o array @gameover para deixar a animação de dano mais lenta.
       if @boss.damaged == true
-        if @image_index < @boss_damaged.count
-          @boss.img = @boss_damaged[@image_index]
+        if @image_index < @gameover.count
           @image_index += 1
         else
           @boss.damaged = false
         end
       end
-
-      @font.draw(@boss.damaged, 30, 30, 1, 1, 1, 0xffffff00)
     when :over
       @font.draw("GAME", 18, 105, 1, 1, 1, 0xffffff00)
       @font.draw("OVER", 18, 135, 1, 1, 1, 0xffffff00)
+      #Animação do GAMEOVER
       if @image_index < @gameover.count
         @gameover[@image_index].draw(0, 0, 0)
         @image_index += 1

@@ -11,16 +11,24 @@ class Boss
 
     @width = 48
 		@height = 48
-    @vidas = 3
-    @damaged = false
+    @vidas = 6
 
     @radius = 24
 
+    @damaged = false
+
     @img = Gosu::Image.new("images/boss.png")
+    @img_damaged = Gosu::Image.new("images/boss_damage.png")
+    @numbers = Gosu::Image::load_tiles('images/tile_8x14.png', 8, 14)
   end
 
   def draw
-    @img.draw_rot(@x, @y, 3, 1)
+    if @damaged == true
+      @img_damaged.draw_rot(@x, @y, 3, 1)
+    else
+      @img.draw_rot(@x, @y, 3, 1)
+    end
+    @numbers[@vidas].draw(195, 6, 3)
   end
 
 end

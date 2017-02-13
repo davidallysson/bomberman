@@ -18,6 +18,7 @@ class Timer
     @seg2 = 0
 
     @tempo = 14400 # 4 min
+    @tempo = 3600
 
     @images = Gosu::Image::load_tiles('images/tile_8x14.png', 8, 14)
 

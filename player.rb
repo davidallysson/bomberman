@@ -31,8 +31,7 @@ class Player
 	#Exibe o personagem sobre o background e nas coordenadas @x e @y
 	def draw
 		@images[@image_index].draw(@x - @width / 2, @y - @height / 2, 3)
-		@numbers[@vidas].draw(182, 6, 3)
-		@numbers[@bomb_limit].draw(212, 6, 3)
+		@numbers[@vidas].draw(51, 6, 3)
 	end
 
 	#Move o personagem para cima e realiza a troca dos seus sprites.

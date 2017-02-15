@@ -65,6 +65,11 @@ class GameWindow < Gosu::Window
         @player.x += 35 if button_down? (Gosu::KbRight)
         @player.x -= 35 if button_down? (Gosu::KbD)
         @player.x -= 35 if button_down? (Gosu::KbLeft)
+        #Evitar que o player seja jogado para fora do mapa
+        @player.y = 36 if @player.y < 36
+        @player.y = 196 if @player.y > 196
+        @player.x = 30 if @player.x < 30
+        @player.x = 224 if @player.x > 224
         @player.vidas -= 1
         @danoOst.play
       end

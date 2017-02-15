@@ -9,7 +9,7 @@ require_relative 'boss'
 class GameWindow < Gosu::Window
   def initialize
     super(256, 240, true)
-    self.caption = "BomberBraulio v.0.4"
+    self.caption = "BomberBraulio v.0.8"
 
     @option = 1
     @image_index = 0
@@ -22,6 +22,7 @@ class GameWindow < Gosu::Window
     @bg_battle = Gosu::Image.new("images/battle_map.png")
     @win = Gosu::Image.new("images/YouWin.png")
     @tutorial = Gosu::Image.new("images/tutorial.png")
+    @creditos = Gosu::Image.new("images/creditos.png")
 
     @gameover = []
     for i in 0..10 do @gameover[i] = Gosu::Image.new("images/gameOver1.png") end
@@ -143,6 +144,8 @@ class GameWindow < Gosu::Window
       @win.draw(0, 0, 0)
     when :tutorial
       @tutorial.draw(0, 0, 0)
+    when :credits
+      @creditos.draw(0, 0, 0)
     end
   end
 

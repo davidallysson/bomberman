@@ -20,6 +20,8 @@ class GameWindow < Gosu::Window
     @bg_option2 = Gosu::Image.new("images/op2.png")
     @bg_option3 = Gosu::Image.new("images/op3.png")
     @bg_battle = Gosu::Image.new("images/battle_map.png")
+    @win = Gosu::Image.new("images/YouWin.png")
+    @tutorial = Gosu::Image.new("images/tutorial.png")
 
     @gameover = []
     for i in 0..10 do @gameover[i] = Gosu::Image.new("images/gameOver1.png") end
@@ -133,13 +135,9 @@ class GameWindow < Gosu::Window
     when :winner
       @font.draw("VOCÊ", 18, 105, 1, 1, 1, 0xffffff00)
       @font.draw("VENCEU", 9, 135, 1, 1, 1, 0xffffff00)
-      #Animação de VITORIA
-      if @image_index < @gameover.count
-        @gameover[@image_index].draw(0, 0, 0)
-        @image_index += 1
-      else
-        @image_index = 0
-      end
+      @win.draw(0, 0, 0)
+    when :tutorial
+      @tutorial.draw(0, 0, 0)
     end
   end
 
@@ -150,7 +148,13 @@ class GameWindow < Gosu::Window
       when Gosu::KbW
         @optionOst.play
         if @option > 1 then @option -= 1 elsif @option == 1 then @option = 3 end
+      when Gosu::KbUp
+        @optionOst.play
+        if @option > 1 then @option -= 1 elsif @option == 1 then @option = 3 end
       when Gosu::KbS
+        @optionOst.play
+        if @option < 3 then @option += 1 elsif @option == 3 then @option = 1 end
+      when Gosu::KbDown
         @optionOst.play
         if @option < 3 then @option += 1 elsif @option == 3 then @option = 1 end
       when Gosu::KbReturn
@@ -162,6 +166,12 @@ class GameWindow < Gosu::Window
           @timer = Timer.new
           @player = Player.new(self)
           @boss = Boss.new(self)
+        end
+        if @option == 2 then
+          @estado = :tutorial
+        end
+        if @option == 3 then
+          @estado = :credits
         end
       when Gosu::KbEscape
         exit
@@ -179,6 +189,16 @@ class GameWindow < Gosu::Window
           @estado = :title
       end
     when :winner
+      case id
+      when Gosu::KbEscape
+          @estado = :title
+      end
+    when :tutorial
+      case id
+      when Gosu::KbEscape
+          @estado = :title
+      end
+    when :credits
       case id
       when Gosu::KbEscape
           @estado = :title

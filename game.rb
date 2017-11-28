@@ -9,7 +9,7 @@ require_relative 'boss'
 class GameWindow < Gosu::Window
   def initialize
     super(256, 240, true)
-    self.caption = "BomberBraulio v.0.8"
+    self.caption = "Bomberman v.0.1"
 
     @option = 1
     @image_index = 0

@@ -12,18 +12,20 @@ class Player
 		@width = 16
 		@height = 14
 
-		@radius = 8 #valor fixo
+		@radius = 8 # Valor fixo
 		@velocity = 4
 
-		#Indice referente a imagem inicial para o personagem
+		# Indice referente a imagem inicial para o personagem
 		@image_index = 6
-		#Divide o sprite em várias imagens diferentes
+		# Divide o sprite em várias imagens diferentes
 		@images = Gosu::Image::load_tiles('images/sprite_16x26v1.png', 16, 26)
-		#Transformar o objeto window em atributo
+		# Transformar o objeto window em atributo
 		@window = window
-
+		# Quantidade de vidas do personagem
 		@vidas = 3
+		# Quantidade de bombas que ele pode colocar
 		@bomb_limit = 1
+		# Tiles com os números a serem mostrados na tela
 		@numbers = Gosu::Image::load_tiles('images/tile_8x14.png', 8, 14)
   end
 
@@ -206,13 +208,14 @@ class Player
 		changeSprite([3, 4, 5])
   end
 
+	#Método responsável pela troca de imagens enquanto o player se movimenta.
 	def changeSprite(indexes)
 		#Verifica se é a primeira vez que o player aperta para uma determinada direção a partir do sprite atual.
 		# Se sim, setar o primeiro sprite da direção selecionada.
 		if @image_index != indexes[0] && @image_index != indexes[1] && @image_index != indexes[2] then @image_index = indexes[0]
 		#Verifica se já está na última imagem. Enquanto não estiver, ele trocará de sprite.
 		elsif @image_index < indexes[2] then @image_index += 1
-		#Verifica se está na última imagem.
+		# Verifica se está na última imagem.
 		# Se sim, retorna para a primeira imagem.
 		elsif @image_index == indexes[2] then @image_index = indexes[0] end
 		sleep 0.1 #Deixar a troca de sprite mais lenta

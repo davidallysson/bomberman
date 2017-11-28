@@ -14,7 +14,9 @@ class Boss
     @radius = 24
     @window = window
 
+    # Quantidade de vidas do Boss
     @vidas = 6
+    # Velocidade do Boss
     @velocity = 1
 
     @damaged = false
@@ -25,11 +27,13 @@ class Boss
   end
 
   def draw
+    # Verifica se o Boss levou dano ou não e, a partir disso, decide qual imagem será exibida
     if @damaged == true
       @img_damaged.draw_rot(@x, @y, 3, 1)
     else
       @img.draw_rot(@x, @y, 3, 1)
     end
+    # Exibindo a quantidade de vidas do Boss no mapa
     @numbers[@vidas].draw(195, 6, 3)
   end
 

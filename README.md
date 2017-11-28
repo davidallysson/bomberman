@@ -1,9 +1,38 @@
-# BomberBraulio
+# Bomberman
 
-Projeto criado para a disciplina de Introdução a Programação do curso de Análise e Desenvolvimento de Sistemas do IFRN - Campus Natal Central. Criado na linguagem Ruby, utiliza a biblioteca de desenvolvimento de jogos "GOSU"
+Projeto inicialmente criado como projeto para a disciplina de Introdução a Programação do curso de Análise e Desenvolvimento de Sistemas do IFRN - Campus Natal Central.
 
-## Executando
+Em sua primeira versão, o projeto era um game inspirado no clássico [Super Bomberman](https://pt.wikipedia.org/wiki/Bomberman), a ideia agora é desenvolver um game mais fiel aos da franquia Bomberman com o diferencial de ser algo feito pela comunidade.
 
-Tenha o Ruby instalado no seu computador, acesse a pasta do projeto e execute:
+## Executando o projeto
 
-        $ ruby game.rb
+- Instale o [Ruby](https://rubyinstaller.org/downloads/) no seu computador.
+- Acesse a pasta do projeto e execute:
+
+  `$ ruby game.rb `
+
+## Contribuindo
+
+- Coloca esse projeto nos seus favoritos com um Star <3 [![Star](http://githubbadges.com/star.svg?user=davidallysson&repo=bomberman&style=default&color=fff&background=e22)](https://github.com/davidallysson/bomberman)
+- Faça um Fork do projeto [![Fork](http://githubbadges.com/fork.svg?user=davidallysson&repo=bomberman&style=default&color=fff&background=e22)](https://github.com/davidallysson/bomberman/fork)
+- Clone o repositório no seu computador
+- Contribua no código ou na documentação do Projeto
+- Crie um commit com as mudanças
+- Faça um Pull Request (PR)
+
+Caso ainda tenha dúvidas ou seja sua primeira contribuição dê uma olhada nesse incrível [artigo](https://blog.da2k.com.br/2015/02/04/git-e-github-do-clone-ao-pull-request/) da da2k sobre como fazer PRs.
+
+## Materiais de Estudo
+
+### Links
+
+- [Conhecimentos básicos de Git e Github](https://willianjusten.teachable.com/p/git-e-github-para-iniciantes)
+- [Ruby em Vinte Minutos](https://www.ruby-lang.org/pt/documentation/quickstart/)
+- [Cursos de Ruby da Codecademy](https://www.codecademy.com/catalog/language/ruby)
+- [Wiki da lib Gosu para jogos com Ruby e C++](https://github.com/gosu/gosu/wiki)
+- [Jogos em Ruby com Gosu](https://medium.com/@alanwillms/jogos-em-ruby-com-gosu-50445c699e96)
+
+### Livros
+
+- [Ruby: Aprenda a programar na linguagem mais divertida](https://casadocodigo.com.br/products/livro-ruby)
+- [Learn Game Programming with Ruby: Bring Your Ideas to Life with Gosu](https://pragprog.com/book/msgpkids/learn-game-programming-with-ruby)

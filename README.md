@@ -13,12 +13,14 @@ Em sua primeira versão, o projeto era um game inspirado no clássico [Super Bom
 
 ## Contribuindo
 
-- Coloca esse projeto nos seus favoritos com um Star <3 [![Star](http://githubbadges.com/star.svg?user=davidallysson&repo=bomberman&style=default&color=fff&background=e22)](https://github.com/davidallysson/bomberman)
-- Faça um Fork do projeto [![Fork](http://githubbadges.com/fork.svg?user=davidallysson&repo=bomberman&style=default&color=fff&background=e22)](https://github.com/davidallysson/bomberman/fork)
-- Clone o repositório no seu computador
-- Contribua no código ou na documentação do Projeto
-- Crie um commit com as mudanças
-- Faça um Pull Request (PR)
+  [![Star](http://githubbadges.com/star.svg?user=davidallysson&repo=bomberman&style=default&color=fff&background=e22)](https://github.com/davidallysson/bomberman) [![Fork](http://githubbadges.com/fork.svg?user=davidallysson&repo=bomberman&style=default&color=fff&background=e22)](https://github.com/davidallysson/bomberman/fork)
+  
+  - :star2: Coloca esse projeto nos seus favoritos com um Star
+  - :fork_and_knife: Faça um Fork do projeto
+  - :computer: Clone o repositório para o seu computador
+  - :wrench: Contribua no código ou na documentação do Projeto
+  - :point_right: Crie um commit com as mudanças e faça um Pull Request (PR)
+  - :tada: Veja seu Pull Request ser aprovado e repita o ciclo!
 
 Caso ainda tenha dúvidas ou seja sua primeira contribuição dê uma olhada nesse incrível [artigo](https://blog.da2k.com.br/2015/02/04/git-e-github-do-clone-ao-pull-request/) da da2k sobre como fazer PRs.
 

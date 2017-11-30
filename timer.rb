@@ -6,7 +6,6 @@ class Timer
   attr_accessor :x, :y, :width, :height, :min, :seg1, :seg2, :tempo
 
   def initialize
-
     @x = 120
 		@y = 13
 
@@ -19,6 +18,8 @@ class Timer
     @images = Gosu::Image::load_tiles('images/tile_8x14.png', 8, 14)
   end
 
+  # Método draw da Classe Timer
+  # Responsável por exibir os tiles com os números informando o tempo da fase.
   def draw
     @images[@min].draw(@x - @width / 2, @y - @height / 2, 2)
     @images[@seg1].draw(@x + 16 - @width / 2, @y - @height / 2, 2)

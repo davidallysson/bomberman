@@ -5,6 +5,8 @@ require 'gosu'
 class Bomb
   attr_accessor :x, :y, :width, :height, :radius, :image_index, :bombtimer, :finished
 
+  # Método construtor da Classe BOMB
+  # Recebe as coordenadas X e Y como parâmetro e inicializa todos atributos de Bomb.
   def initialize(x, y)
     @x = x
     @y = y
@@ -22,6 +24,7 @@ class Bomb
 
   end
 
+  # Método draw da Classe BOMB
   def draw
     if @bombtimer < 3 then
       if @image_index < @images_bomb.count

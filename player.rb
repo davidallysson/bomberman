@@ -18,7 +18,7 @@ class Player
 		# Indice referente a imagem inicial para o personagem
 		@image_index = 6
 		# Divide o sprite em várias imagens diferentes
-		@images = Gosu::Image::load_tiles('images/sprite_16x26v1.png', 16, 26)
+		@images = Gosu::Image::load_tiles('images/sprite_16x26.png', 16, 26)
 		# Transformar o objeto window em atributo
 		@window = window
 		# Quantidade de vidas do personagem

@@ -1,4 +1,4 @@
-# Bomberman
+# Bomberman [![Star](http://githubbadges.com/star.svg?user=davidallysson&repo=bomberman&style=default&color=fff&background=e22)](https://github.com/davidallysson/bomberman) [![Fork](http://githubbadges.com/fork.svg?user=davidallysson&repo=bomberman&style=default&color=fff&background=e22)](https://github.com/davidallysson/bomberman/fork)
 
 Projeto inicialmente criado como projeto para a disciplina de Introdução a Programação do curso de Análise e Desenvolvimento de Sistemas do IFRN - Campus Natal Central.
 
@@ -13,8 +13,6 @@ Em sua primeira versão, o projeto era um game inspirado no clássico [Super Bom
 
 ## Contribuindo
 
-  [![Star](http://githubbadges.com/star.svg?user=davidallysson&repo=bomberman&style=default&color=fff&background=e22)](https://github.com/davidallysson/bomberman) [![Fork](http://githubbadges.com/fork.svg?user=davidallysson&repo=bomberman&style=default&color=fff&background=e22)](https://github.com/davidallysson/bomberman/fork)
-  
   - :star2: Coloca esse projeto nos seus favoritos com um Star
   - :fork_and_knife: Faça um Fork do projeto
   - :computer: Clone o repositório para o seu computador

@@ -29,7 +29,6 @@ class Boss
   # Exibe o Boss nas coordenadas X e Y e exibe a quantidade de vidas do Boss no mapa.
   def draw
     @img.draw_rot(@x, @y, 3, 1)
-    @numbers[@quantidadeDeVidas].draw(195, 6, 3)
   end
 
   #Move o personagem para cima e realiza a troca dos seus sprites.

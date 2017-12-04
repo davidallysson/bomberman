@@ -22,7 +22,7 @@ class GameWindow < Gosu::Window
     @background_option1 = Gosu::Image.new("images/op1.png")
     @background_option2 = Gosu::Image.new("images/op2.png")
     @background_option3 = Gosu::Image.new("images/op3.png")
-    @background_battle_map = Gosu::Image.new("images/battle_map.png")
+    @background_battle_map = Gosu::Image.new("images/original_battle_map.png")
 
     @winner_screen = Gosu::Image.new("images/YouWin.jpg")
     @credits_screen = Gosu::Image.new("images/creditos.png")
@@ -31,7 +31,7 @@ class GameWindow < Gosu::Window
 
     # Sons utilizados no jogo
     @option_sound_effect = Gosu::Sample.new("audio/opçãoSom.wav")
-    @damage_sound_effect = Gosu::Sample.new("audio/dano.ogg")
+    @damage_sound_effect = Gosu::Sample.new("audio/bomba_som.wav")
     @battle_map_soundtrack = Gosu::Song.new("audio/Battle.wav")
     @title_screen_soundtrack = Gosu::Song.new("audio/TitleScreen.wav")
     @gameover_screen_soundtrack = Gosu::Song.new("audio/GameOver.wav")
@@ -58,32 +58,34 @@ class GameWindow < Gosu::Window
       @player.move_right if button_down? (Gosu::KbRight)
 
       #Movimentação do BOSS
-      @boss.move_up if button_down? (Gosu::KbW)
-      @boss.move_down if button_down? (Gosu::KbS)
-      @boss.move_left if button_down? (Gosu::KbA)
-      @boss.move_right if button_down? (Gosu::KbD)
+      # @boss.move_up if button_down? (Gosu::KbW)
+      # @boss.move_down if button_down? (Gosu::KbS)
+      # @boss.move_left if button_down? (Gosu::KbA)
+      # @boss.move_right if button_down? (Gosu::KbD)
 
       #Colisão PLAYER-BOSS
-      distanciaBoss = Gosu::distance(@player.x, @player.y, @boss.x, @boss.y)
-      if distanciaBoss + 15 < @player.radius + @boss.radius then
-        @player.y += 35 if button_down? (Gosu::KbW)
-        @player.y += 35 if button_down? (Gosu::KbDown)
-        @player.y -= 35 if button_down? (Gosu::KbS)
-        @player.y -= 35 if button_down? (Gosu::KbUp)
-        @player.x += 35 if button_down? (Gosu::KbA)
-        @player.x += 35 if button_down? (Gosu::KbRight)
-        @player.x -= 35 if button_down? (Gosu::KbD)
-        @player.x -= 35 if button_down? (Gosu::KbLeft)
-        #Evitar que o player seja jogado para fora do mapa
-        @player.y = 36 if @player.y < 36
-        @player.y = 196 if @player.y > 196
-        @player.x = 30 if @player.x < 30
-        @player.x = 224 if @player.x > 224
-        @player.vidas -= 1
-        @damage_sound_effect.play
-      end
-      # Colisão BOMBA-BOSS
+      # distanciaBoss = Gosu::distance(@player.x, @player.y, @boss.x, @boss.y)
+      # if distanciaBoss + 15 < @player.radius + @boss.radius then
+      #   @player.y += 35 if button_down? (Gosu::KbW)
+      #   @player.y += 35 if button_down? (Gosu::KbDown)
+      #   @player.y -= 35 if button_down? (Gosu::KbS)
+      #   @player.y -= 35 if button_down? (Gosu::KbUp)
+      #   @player.x += 35 if button_down? (Gosu::KbA)
+      #   @player.x += 35 if button_down? (Gosu::KbRight)
+      #   @player.x -= 35 if button_down? (Gosu::KbD)
+      #   @player.x -= 35 if button_down? (Gosu::KbLeft)
+      #   #Evitar que o player seja jogado para fora do mapa
+      #   @player.y = 36 if @player.y < 36
+      #   @player.y = 196 if @player.y > 196
+      #   @player.x = 30 if @player.x < 30
+      #   @player.x = 224 if @player.x > 224
+      #   @player.vidas -= 1
+      # end
+
       @bombs.each do |bomb|
+        # Som da Bomba após explodir
+        @damage_sound_effect.play if bomb.finished == true
+        # Colisão BOMBA-BOSS
         @distanciaBomba = Gosu::distance(bomb.x, bomb.y, @boss.x, @boss.y)
         if @distanciaBomba - 10 < bomb.radius + @boss.radius then
           if bomb.finished == true then
@@ -120,7 +122,7 @@ class GameWindow < Gosu::Window
     when :game
       @background_battle_map.draw(0, 0, 0)
       @player.draw
-      @boss.draw
+      # @boss.draw
       @timer.draw
       @bombs.each do |bomb|
         if bomb.finished == false
@@ -167,7 +169,7 @@ class GameWindow < Gosu::Window
           @bombs = []
           @timer = Timer.new
           @player = Player.new(self)
-          @boss = Boss.new(self)
+          # @boss = Boss.new(self)
         end
         if @option == 2 then
           @estado = :tutorial

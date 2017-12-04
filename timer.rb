@@ -6,13 +6,13 @@ class Timer
   attr_accessor :x, :y, :width, :height, :min, :seg1, :seg2, :tempo
 
   def initialize
-    @x = 120
+    @x = 124
 		@y = 13
 
 		@width = 8
 		@height = 14
 
-    @minutosreais = 2
+    @minutosreais = 4
     @tempo = 3600 * @minutosreais
 
     @images = Gosu::Image::load_tiles('images/tile_8x14.png', 8, 14)

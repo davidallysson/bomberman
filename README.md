@@ -27,12 +27,16 @@ Caso ainda tenha dúvidas ou seja sua primeira contribuição dê uma olhada nes
 ### Links
 
 - [Conhecimentos básicos de Git e Github](https://willianjusten.teachable.com/p/git-e-github-para-iniciantes)
+- [Contribuindo em projetos open-source com o Github](https://tableless.com.br/contribuindo-em-projetos-open-source-com-o-github/)
+- [DevMedia: Conhecendo a Linguagem Ruby](https://www.devmedia.com.br/conhecendo-a-linguagem-ruby/8226)
 - [Ruby em Vinte Minutos](https://www.ruby-lang.org/pt/documentation/quickstart/)
 - [Cursos de Ruby da Codecademy](https://www.codecademy.com/catalog/language/ruby)
+- [Learn Ruby: The Hard Way](https://learnrubythehardway.org/book/)
 - [Wiki da lib Gosu para jogos com Ruby e C++](https://github.com/gosu/gosu/wiki)
 - [Jogos em Ruby com Gosu](https://medium.com/@alanwillms/jogos-em-ruby-com-gosu-50445c699e96)
 
 ### Livros
 
+- [O Comovente Guia de Ruby do Why](http://why.carlosbrando.com/)
 - [Ruby: Aprenda a programar na linguagem mais divertida](https://casadocodigo.com.br/products/livro-ruby)
 - [Learn Game Programming with Ruby: Bring Your Ideas to Life with Gosu](https://pragprog.com/book/msgpkids/learn-game-programming-with-ruby)

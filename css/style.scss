@@ -11,6 +11,8 @@
 }
 
 .bg-red { background-color: #AA2020; }
+.bg-cinza { background-color: #364147; }
+.bg-preto { background-color: #212121; }
 
 a {
   &:hover { text-decoration: underline; }
@@ -40,6 +42,14 @@ nav {
   @include  centralizar-img;
   background: url("../images/bomberman-full.png") no-repeat;
   background-size: 100%;
+}
+
+#contribute {
+  color: white;
+  padding: 20px;
+  text-align: center;
+  background-color: #AA2020;
+  box-shadow: 2px 2px 0.5px #000;
 }
 
 .github-corner:hover .octo-arm{

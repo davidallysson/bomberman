@@ -30,11 +30,11 @@ class GameWindow < Gosu::Window
     @gameover_screen = Gosu::Image.new("images/gameOver.png")
 
     # Sons utilizados no jogo
-    @option_sound_effect = Gosu::Sample.new("audio/opçãoSom.wav")
+    @option_sound_effect = Gosu::Sample.new("audio/opcao_som.wav")
     @damage_sound_effect = Gosu::Sample.new("audio/bomba_som.wav")
-    @battle_map_soundtrack = Gosu::Song.new("audio/Battle.wav")
-    @title_screen_soundtrack = Gosu::Song.new("audio/TitleScreen.wav")
-    @gameover_screen_soundtrack = Gosu::Song.new("audio/GameOver.wav")
+    @battle_map_soundtrack = Gosu::Song.new("audio/battle.wav")
+    @title_screen_soundtrack = Gosu::Song.new("audio/title_screen.wav")
+    @gameover_screen_soundtrack = Gosu::Song.new("audio/game_over.wav")
     @winner_screen_soundtrack = Gosu::Song.new("audio/win.wav")
 
     # Array responsável por controlar quantidade de bombas

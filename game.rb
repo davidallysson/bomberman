@@ -169,7 +169,7 @@ class GameWindow < Gosu::Window
           @bombs = []
           @timer = Timer.new
           @player = Player.new(self)
-          # @boss = Boss.new(self)
+          @boss = Boss.new(self)
         end
         if @option == 2 then
           @estado = :tutorial

@@ -89,7 +89,7 @@ class GameWindow < Gosu::Window
         @distanciaBomba = Gosu::distance(bomb.x, bomb.y, @boss.x, @boss.y)
         if @distanciaBomba - 10 < bomb.radius + @boss.radius then
           if bomb.finished == true then
-            @boss.quantidadeDeVidas -= 1
+            @boss.quantidade_de_vidas -= 1
             @image_index = 0 #reiniciar animação
           end
         end
@@ -99,7 +99,7 @@ class GameWindow < Gosu::Window
         @estado = :over
       end
       #Condições que levam a vitória
-      if @boss.quantidadeDeVidas == 0
+      if @boss.quantidade_de_vidas == 0
         @estado = :winner
       end
     when :over

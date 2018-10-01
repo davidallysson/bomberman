@@ -3,7 +3,7 @@ $LOAD_PATH << '.'
 require 'gosu'
 
 class Boss
-  attr_accessor :x, :y, :width, :height, :img, :radius, :quantidadeDeVidas, :window
+  attr_accessor :x, :y, :width, :height, :img, :radius, :quantidade_de_vidas, :window
 
   # Método construtor da Classe BOSS
   # Recebe o objeto janela (window) como parâmetro e inicializa todos atributos de Boss.
@@ -17,7 +17,7 @@ class Boss
     @window = window
 
     # Quantidade de vidas do Boss
-    @quantidadeDeVidas = 1
+    @quantidade_de_vidas = 1
     # Velocidade do Boss
     @velocidadeDeMovimento = 1
 

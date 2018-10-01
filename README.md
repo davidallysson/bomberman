@@ -4,6 +4,10 @@ Projeto inicialmente criado como projeto para a disciplina de Introdução a Pro
 
 Em sua primeira versão, o projeto era um game inspirado no clássico [Super Bomberman](https://pt.wikipedia.org/wiki/Bomberman), a ideia agora é desenvolver um game mais fiel aos da franquia Bomberman com o diferencial de ser algo feito pela comunidade.
 
+## Dependências
+
+Esse projeto utiliza a biblioteca [Gosu](https://www.libgosu.org) para construir as telas em 2D. E por isso é necessário ter instalado [SDL 2](http://www.libsdl.org/).
+
 ## Executando o projeto
 
 - Instale o [Ruby](https://rubyinstaller.org/downloads/) no seu computador.

@@ -10,10 +10,22 @@ Esse projeto utiliza a biblioteca [Gosu](https://www.libgosu.org) para construir
 
 ## Executando o projeto
 
-- Instale o [Ruby](https://rubyinstaller.org/downloads/) no seu computador.
-- Acesse a pasta do projeto e execute:
+Instale o [Ruby 1.9.3](https://rubyinstaller.org/downloads/) no seu computador. Depois do ruby instalado instale também `bundler` gem.
 
-  `$ ruby game.rb `
+```bash
+gem install bundler
+```
+
+Instale as dependências do projeto através do comando:
+```bash
+bundle install
+```
+
+Acesse a diretório do projeto e execute:
+
+```bash
+ruby game.rb
+```
 
 ## Contribuindo
 

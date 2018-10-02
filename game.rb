@@ -30,11 +30,11 @@ class GameWindow < Gosu::Window
     @gameover_screen = Gosu::Image.new("images/gameOver.png")
 
     # Sons utilizados no jogo
-    @option_sound_effect = Gosu::Sample.new("audio/opçãoSom.wav")
+    @option_sound_effect = Gosu::Sample.new("audio/opcao_som.wav")
     @damage_sound_effect = Gosu::Sample.new("audio/bomba_som.wav")
-    @battle_map_soundtrack = Gosu::Song.new("audio/Battle.wav")
-    @title_screen_soundtrack = Gosu::Song.new("audio/TitleScreen.wav")
-    @gameover_screen_soundtrack = Gosu::Song.new("audio/GameOver.wav")
+    @battle_map_soundtrack = Gosu::Song.new("audio/battle.wav")
+    @title_screen_soundtrack = Gosu::Song.new("audio/title_screen.wav")
+    @gameover_screen_soundtrack = Gosu::Song.new("audio/game_over.wav")
     @winner_screen_soundtrack = Gosu::Song.new("audio/win.wav")
 
     # Array responsável por controlar quantidade de bombas
@@ -89,7 +89,7 @@ class GameWindow < Gosu::Window
         @distanciaBomba = Gosu::distance(bomb.x, bomb.y, @boss.x, @boss.y)
         if @distanciaBomba - 10 < bomb.radius + @boss.radius then
           if bomb.finished == true then
-            @boss.quantidadeDeVidas -= 1
+            @boss.quantidade_de_vidas -= 1
             @image_index = 0 #reiniciar animação
           end
         end
@@ -99,7 +99,7 @@ class GameWindow < Gosu::Window
         @estado = :over
       end
       #Condições que levam a vitória
-      if @boss.quantidadeDeVidas == 0
+      if @boss.quantidade_de_vidas == 0
         @estado = :winner
       end
     when :over
@@ -169,7 +169,7 @@ class GameWindow < Gosu::Window
           @bombs = []
           @timer = Timer.new
           @player = Player.new(self)
-          # @boss = Boss.new(self)
+          @boss = Boss.new(self)
         end
         if @option == 2 then
           @estado = :tutorial
